@@ -1,14 +1,17 @@
 package com.example.planetjpa.PlanetType;
 
+import com.example.planetjpa.Planet.Planet;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "PLANET_TYPE")
+@Table(name = "DIFFERENT_PLANET_TYPES")
 public class PlanetType {
 
     @Id
@@ -23,6 +26,11 @@ public class PlanetType {
 
     @Column(name = "DWARF_PLANETS")
     private String dwarfPlanets;
+
+    @ManyToMany(mappedBy = "planetTypes",
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL)
+    private List<Planet> allPlanets = new ArrayList<>();
 
     public PlanetType(String terrestrialPlanets, String jovianPlanets, String dwarfPlanets) {
         this.terrestrialPlanets = terrestrialPlanets;

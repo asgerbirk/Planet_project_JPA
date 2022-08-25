@@ -34,7 +34,7 @@ public class Customer {
 @ManyToMany(mappedBy = "allReservations",
             fetch = FetchType.EAGER,
              cascade = CascadeType.ALL)
-    private Set<Reservation> allCustomers = new HashSet<>();
+    private List<Reservation> allCustomers = new ArrayList<>();
 
 
 

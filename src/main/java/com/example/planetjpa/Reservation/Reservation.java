@@ -30,20 +30,12 @@ public class Reservation {
         joinColumns = @JoinColumn(name = "RESERVATION_ID"),
         inverseJoinColumns = @JoinColumn(name = "CUSTOMER_ID")
 )
-private Set<Customer> allReservations = new HashSet<>();
+private List<Customer> allReservations = new ArrayList<>();
 
 
     public Reservation(String planetName, int timeFrame) {
         this.planetName = planetName;
         this.timeFrame = timeFrame;
-    }
-
-    public Set<Customer> getAllReservations() {
-        return allReservations;
-    }
-
-    public void setAllReservations(Set<Customer> allReservations) {
-        this.allReservations = allReservations;
     }
 
     @Override
