@@ -24,4 +24,9 @@ public class Spaceship {
     @Column(name = "SPEED",nullable = false)
     private int speed;
 
+    public Spaceship(String name, int size, int speed) {
+        this.name = name;
+        this.size = size;
+        this.speed = speed;
+    }
 }

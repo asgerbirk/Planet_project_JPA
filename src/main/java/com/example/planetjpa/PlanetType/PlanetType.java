@@ -27,6 +27,11 @@ public class PlanetType {
     @Column(name = "DWARF_PLANETS")
     private String dwarfPlanets;
 
+@OneToMany(mappedBy = "planet",
+        fetch = FetchType.EAGER,
+        cascade = CascadeType.ALL)
+private List<Planet> planetTypes = new ArrayList<>();
+
     @ManyToMany(mappedBy = "planetTypes",
             fetch = FetchType.EAGER,
             cascade = CascadeType.ALL)

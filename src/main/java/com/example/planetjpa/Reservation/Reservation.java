@@ -21,7 +21,8 @@ public class Reservation {
         nullable = false)
     private String planetName;
 
-@Column(name = "TIME_FRAME",nullable = false)
+@Column(name = "TIME_FRAME",
+        nullable = false)
     private int timeFrame;
 
 @ManyToMany(cascade = CascadeType.ALL)
@@ -44,6 +45,7 @@ private List<Customer> allReservations = new ArrayList<>();
                 "id=" + id +
                 ", planetName='" + planetName + '\'' +
                 ", timeFrame=" + timeFrame +
+                ", allReservations=" + allReservations +
                 '}';
     }
 }

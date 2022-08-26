@@ -49,6 +49,10 @@ public class Planet {
             nullable = false)
     private int numberOfMoons;
 
+    @ManyToOne
+    @JoinColumn(name = "PLANET_TYPE_ID")
+    private Planet planet;
+
 @ManyToMany
 @JoinTable(
         name = "PLANET_TYPES",
@@ -57,6 +61,19 @@ joinColumns = @JoinColumn(name = "PLANET_NAME"),
 )
 private List<PlanetType> planetTypes = new ArrayList<>();
 
+
+    public Planet(String name, double mass, double diameter, int density, double gravity, double lenghtOfDay, double distanceFromSun, int numberOfMoons, Planet planet, List<PlanetType> planetTypes) {
+        this.name = name;
+        this.mass = mass;
+        this.diameter = diameter;
+        this.density = density;
+        this.gravity = gravity;
+        this.lenghtOfDay = lenghtOfDay;
+        this.distanceFromSun = distanceFromSun;
+        this.numberOfMoons = numberOfMoons;
+        this.planet = planet;
+        this.planetTypes = planetTypes;
+    }
 
     public Planet(String name, double mass, double diameter, int density, double gravity, double lenghtOfDay, double distanceFromSun, int numberOfMoons) {
         this.name = name;
