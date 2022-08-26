@@ -1,22 +1,24 @@
 package com.example.planetjpa;
 
-import com.example.planetjpa.Customer.Customer;
+import com.example.planetjpa.Customer.Model.Customer;
 
-import com.example.planetjpa.Customer.CustomerRepository;
-import com.example.planetjpa.Planet.Planet;
-import com.example.planetjpa.Planet.PlanetRepository;
-import com.example.planetjpa.PlanetType.PlanetType;
-import com.example.planetjpa.PlanetType.PlanetTypeRepository;
-import com.example.planetjpa.Reservation.Reservation;
-import com.example.planetjpa.Reservation.ReservationRepository;
-import com.example.planetjpa.Spaceship.Spaceship;
-import com.example.planetjpa.Spaceship.SpaceshipRepository;
+import com.example.planetjpa.Customer.Repository.CustomerRepository;
+import com.example.planetjpa.Planet.Model.Planet;
+import com.example.planetjpa.Planet.Repository.PlanetRepository;
+import com.example.planetjpa.PlanetType.Model.PlanetType;
+import com.example.planetjpa.PlanetType.Repository.PlanetTypeRepository;
+import com.example.planetjpa.Reservation.Model.Reservation;
+import com.example.planetjpa.Reservation.Repository.ReservationRepository;
+import com.example.planetjpa.Spaceship.Model.Spaceship;
+import com.example.planetjpa.Spaceship.Repository.SpaceshipRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -60,10 +62,19 @@ public class PlanetJpaApplication {
           spaceshipRepository.saveAll(spaceships);
 
           final List<Reservation> reservations = new ArrayList<>();
-reservations.add(new Reservation("johnplanet", 10));
-reservations.add(new Reservation("ede", 10));
-reservations.add(new Reservation("johndadsdsadasasplanet", 10));
-reservationRepository.saveAll(reservations);
+         reservations.add(new Reservation(new Date(), new Date(), customers,planets.get(0),spaceships.get(0)));
+         reservations.add(new Reservation(new Date(), new Date(), customers,planets.get(1),spaceships.get(1)));
+         reservations.add(new Reservation(new Date(), new Date(), customers,planets.get(2),spaceships.get(2)));
+         reservationRepository.saveAll(reservations);
+
+
+         final List<PlanetType> planetTypes = new ArrayList<>();
+         planetTypes.add(new PlanetType("terrestrial planet"));
+         planetTypes.add(new PlanetType("jovian planet"));
+         planetTypes.add(new PlanetType("Dwarf Planet"));
+         planetTypeRepository.saveAll(planetTypes);
+
+
 
        };
      }

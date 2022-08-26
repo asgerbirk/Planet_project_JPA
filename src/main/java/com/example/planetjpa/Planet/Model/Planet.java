@@ -1,6 +1,7 @@
-package com.example.planetjpa.Planet;
+package com.example.planetjpa.Planet.Model;
 
-import com.example.planetjpa.PlanetType.PlanetType;
+import com.example.planetjpa.PlanetType.Model.PlanetType;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -49,31 +50,21 @@ public class Planet {
             nullable = false)
     private int numberOfMoons;
 
-    @ManyToOne
-    @JoinColumn(name = "PLANET_TYPE_ID")
-    private Planet planet;
 
-@ManyToMany
+
+    @JsonManagedReference
+@ManyToMany(cascade = {
+        CascadeType.MERGE
+})
 @JoinTable(
-        name = "PLANET_TYPES",
-joinColumns = @JoinColumn(name = "PLANET_NAME"),
-        inverseJoinColumns = @JoinColumn(name = "PLANET_TYPE")
+        name = "planet_planettype",
+        joinColumns = @JoinColumn(name = "planet_id"),
+        inverseJoinColumns = @JoinColumn(name = "planettype_id")
 )
-private List<PlanetType> planetTypes = new ArrayList<>();
+private List<PlanetType> types = new ArrayList<>();
 
 
-    public Planet(String name, double mass, double diameter, int density, double gravity, double lenghtOfDay, double distanceFromSun, int numberOfMoons, Planet planet, List<PlanetType> planetTypes) {
-        this.name = name;
-        this.mass = mass;
-        this.diameter = diameter;
-        this.density = density;
-        this.gravity = gravity;
-        this.lenghtOfDay = lenghtOfDay;
-        this.distanceFromSun = distanceFromSun;
-        this.numberOfMoons = numberOfMoons;
-        this.planet = planet;
-        this.planetTypes = planetTypes;
-    }
+
 
     public Planet(String name, double mass, double diameter, int density, double gravity, double lenghtOfDay, double distanceFromSun, int numberOfMoons) {
         this.name = name;

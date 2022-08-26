@@ -1,4 +1,4 @@
-package com.example.planetjpa.Spaceship;
+package com.example.planetjpa.Spaceship.Model;
 
 import lombok.Getter;
 import lombok.Setter;
