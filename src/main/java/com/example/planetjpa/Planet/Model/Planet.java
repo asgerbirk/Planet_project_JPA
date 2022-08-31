@@ -3,6 +3,7 @@ package com.example.planetjpa.Planet.Model;
 import com.example.planetjpa.PlanetType.Model.PlanetType;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "PLANET")
 public class Planet {
@@ -53,20 +55,18 @@ public class Planet {
 
 
     @JsonManagedReference
-@ManyToMany(cascade = {
+    @ManyToMany(cascade = {
         CascadeType.MERGE
-})
-@JoinTable(
-        name = "planet_planettype",
+    })
+    @JoinTable(
+        name = "planettype_jointable",
         joinColumns = @JoinColumn(name = "planet_id"),
-        inverseJoinColumns = @JoinColumn(name = "planettype_id")
-)
-private List<PlanetType> types = new ArrayList<>();
+        inverseJoinColumns = @JoinColumn(name = "planettype_id"))
+    private List<PlanetType> types = new ArrayList<>();
 
 
 
-
-    public Planet(String name, double mass, double diameter, int density, double gravity, double lenghtOfDay, double distanceFromSun, int numberOfMoons) {
+    public Planet(String name, double mass, double diameter, int density, double gravity, double lenghtOfDay, double distanceFromSun, int numberOfMoons, List<PlanetType> types) {
         this.name = name;
         this.mass = mass;
         this.diameter = diameter;
@@ -75,9 +75,7 @@ private List<PlanetType> types = new ArrayList<>();
         this.lenghtOfDay = lenghtOfDay;
         this.distanceFromSun = distanceFromSun;
         this.numberOfMoons = numberOfMoons;
-    }
-
-    public Planet() {
+        this.types = types;
     }
 
     @Override

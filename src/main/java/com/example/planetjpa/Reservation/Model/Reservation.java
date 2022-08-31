@@ -4,6 +4,7 @@ import com.example.planetjpa.Customer.Model.Customer;
 import com.example.planetjpa.Planet.Model.Planet;
 import com.example.planetjpa.Spaceship.Model.Spaceship;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -45,27 +46,13 @@ public class Reservation {
     @ManyToOne
     Spaceship spaceship;
 
-    public Reservation(Date startDate, Date endDate, List<Customer> customers, @NonNull Planet planet, Spaceship spaceship) {
+    public Reservation(Date startDate, Date endDate, List<Customer> customers, Planet planet, Spaceship spaceship) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.customers = customers;
         this.planet = planet;
         this.spaceship = spaceship;
     }
-
-
-
-    /*
-@JsonBackReference
-@ManyToMany(cascade = CascadeType.MERGE)
-@JoinTable(
-        name = "customer_reservations",
-        joinColumns = @JoinColumn(name = "reservations_id"),
-        inverseJoinColumns = @JoinColumn(name = "customer_id")
-)
-private List<Customer> customersss = new ArrayList<>();
-
- */
 
 
     @Override

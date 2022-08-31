@@ -30,14 +30,6 @@ public class Customer {
     @Column(name = "LASTNAME")
     private String lastName;
 
-/*
-@ManyToMany(mappedBy = "customers",
-            fetch = FetchType.EAGER,
-             cascade = CascadeType.ALL)
-    private List<Reservation> reservations = new ArrayList<>();
-
- */
-
     @JsonBackReference
     @ManyToMany(cascade = {
             CascadeType.MERGE
@@ -48,7 +40,6 @@ public class Customer {
             inverseJoinColumns = @JoinColumn(name = "reservation_id")
     )
     private List<Reservation> reservations = new ArrayList<>();
-
 
     public Customer(String firstName, String lastName) {
         this.firstName = firstName;

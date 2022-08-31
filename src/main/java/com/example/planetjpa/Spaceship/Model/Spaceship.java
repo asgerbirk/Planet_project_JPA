@@ -1,11 +1,13 @@
 package com.example.planetjpa.Spaceship.Model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 
 @Getter
+@NoArgsConstructor
 @Setter
 @Entity
 @Table(name = "SPACESHIP")
@@ -23,6 +25,7 @@ public class Spaceship {
 
     @Column(name = "SPEED",nullable = false)
     private int speed;
+
 
     public Spaceship(String name, int size, int speed) {
         this.name = name;

@@ -1,7 +1,5 @@
 package com.example.planetjpa;
-
 import com.example.planetjpa.Customer.Model.Customer;
-
 import com.example.planetjpa.Customer.Repository.CustomerRepository;
 import com.example.planetjpa.Planet.Model.Planet;
 import com.example.planetjpa.Planet.Repository.PlanetRepository;
@@ -15,11 +13,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
-import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @SpringBootApplication
@@ -48,11 +46,17 @@ public class PlanetJpaApplication {
           customers.add(new Customer("test", "john"));
           customerRepository.saveAll(customers);
 
+           final List<PlanetType> planetTypes = new ArrayList<>();
+           planetTypes.add(new PlanetType("terrestrial planet"));
+           planetTypes.add(new PlanetType("jovian planet"));
+           planetTypes.add(new PlanetType("Dwarf Planet"));
+           planetTypeRepository.saveAll(planetTypes);
+
           final List<Planet> planets = new ArrayList<>();
-          planets.add(new Planet("d2d", 123.2,12312,12312,3232,432,123,123));
-          planets.add(new Planet("zandoplanet", 123.2,12312,12312,3232,432,123,123));
-          planets.add(new Planet("johnplanet", 123.2,12312,12312,3232,432,123,123));
-          planets.add(new Planet("hejplanet", 123.2,12312,12312,3232,432,123,123));
+          planets.add(new Planet("d2d", 123.2,12312,12312,3232,432,123,123, List.of(planetTypes.get(0))));
+          planets.add(new Planet("zandoplanet", 123.2,12312,12312,3232,432,123,123, List.of(planetTypes.get(1))));
+          planets.add(new Planet("johnplanet", 123.2,12312,12312,3232,432,123,123,List.of(planetTypes.get(0))));
+          planets.add(new Planet("hejplanet", 123.2,12312,12312,3232,432,123,123,List.of(planetTypes.get(1))));
           planetRepository.saveAll(planets);
 
           final List<Spaceship> spaceships = new ArrayList<>();
@@ -61,18 +65,17 @@ public class PlanetJpaApplication {
           spaceships.add(new Spaceship("smash",100,50000000));
           spaceshipRepository.saveAll(spaceships);
 
-          final List<Reservation> reservations = new ArrayList<>();
-         reservations.add(new Reservation(new Date(), new Date(), customers,planets.get(0),spaceships.get(0)));
-         reservations.add(new Reservation(new Date(), new Date(), customers,planets.get(1),spaceships.get(1)));
-         reservations.add(new Reservation(new Date(), new Date(), customers,planets.get(2),spaceships.get(2)));
-         reservationRepository.saveAll(reservations);
+
+           final List<Customer> reservationCustomers = List.of(customers.get(0),customers.get(1));
 
 
-         final List<PlanetType> planetTypes = new ArrayList<>();
-         planetTypes.add(new PlanetType("terrestrial planet"));
-         planetTypes.add(new PlanetType("jovian planet"));
-         planetTypes.add(new PlanetType("Dwarf Planet"));
-         planetTypeRepository.saveAll(planetTypes);
+          Reservation reservation = new Reservation(new Date(), new Date(), customers,planets.get(0),spaceships.get(1));
+         reservationRepository.save(reservation);
+
+
+
+           reservationCustomers.forEach(reservationCustomer -> reservationCustomer.getReservations().add(reservation));
+           customerRepository.saveAll(reservationCustomers);
 
 
 
